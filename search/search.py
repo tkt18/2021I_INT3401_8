@@ -87,7 +87,32 @@ def depthFirstSearch(problem):
     print "Start's successors:", problem.getSuccessors(problem.getStartState())
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+
+    visited = set()     # Danh sach cac vi tri da den (state)
+    stack = util.Stack() # Luu tru danh sach cac vi tri can xet
+    stack.push((problem.getStartState(), []))
+    while not stack.isEmpty():
+        print visited
+        current_state, actions = stack.pop()
+
+        # bo qua cac node da duyet
+        if current_state in visited:
+            continue    
+        
+        # them vao danh sach da den
+        visited.add(current_state)
+
+        # kiem tra da dat trang thai dich hay chua
+        if problem.isGoalState(current_state):
+            return actions
+        
+        # tim cac node lan can chua duyet, them vao danh sach duyet
+        for successor, action, cost in problem.getSuccessors(current_state):
+            if successor not in visited:
+                stack.push((successor,actions+[action]))
+
+
+
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
