@@ -92,22 +92,22 @@ def depthFirstSearch(problem):
     stack = util.Stack() # Luu tru danh sach cac vi tri can xet
     stack.push((problem.getStartState(), []))
     while not stack.isEmpty():
-        print visited
-        current_state, actions = stack.pop()
+        # print visited
+        state, actions = stack.pop()
 
         # bo qua cac node da duyet
-        if current_state in visited:
+        if state in visited:
             continue    
         
         # them vao danh sach da den
-        visited.add(current_state)
+        visited.add(state)
 
         # kiem tra da dat trang thai dich hay chua
-        if problem.isGoalState(current_state):
+        if problem.isGoalState(state):
             return actions
         
         # tim cac node lan can chua duyet, them vao danh sach duyet
-        for successor, action, cost in problem.getSuccessors(current_state):
+        for successor, action, cost in problem.getSuccessors(state):
             if successor not in visited:
                 stack.push((successor,actions+[action]))
 
@@ -117,7 +117,10 @@ def depthFirstSearch(problem):
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    visited = set()
+    queue = util.Queue()
+    queue.push((problem.getStartState,[]))
+    
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
