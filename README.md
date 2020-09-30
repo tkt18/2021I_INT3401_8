@@ -47,7 +47,7 @@ Tìm điểm cố định bằng phương pháp tìm kiếm theo chiều sâu (d
     - Sử dụng stack để lưu danh sách các ô kề, khi không còn ô nào có thể đi nữa có thể quay lại vị trí đỉnh cha 
 
 ### Câu hỏi 2:
-Tìm điểm cố định bằng phương pháp tìm kiếm theo chiều rộng (bread first search)
+Tìm điểm cố định bằng phương pháp tìm kiếm theo chiều rộng (breadth first search)
 - Cách làm:
     - tương tự dfs
     - Sử dụng queue để lưu danh sách các ô kề, 
