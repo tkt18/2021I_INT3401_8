@@ -88,25 +88,20 @@ def depthFirstSearch(problem):
     """
     "*** YOUR CODE HERE ***"
 
-    visited = set()     # Danh sach cac vi tri da den (state)
-    stack = util.Stack() # Luu tru danh sach cac vi tri can xet
+    visited = set()    
+    stack = util.Stack() 
     stack.push((problem.getStartState(), []))
     while not stack.isEmpty():
-        # print visited
         state, actions = stack.pop()
 
-        # bo qua cac node da duyet
         if state in visited:
             continue    
         
-        # them vao danh sach da den
         visited.add(state)
 
-        # kiem tra da dat trang thai dich hay chua
         if problem.isGoalState(state):
             return actions
         
-        # tim cac node lan can chua duyet, them vao danh sach duyet
         for successor, action, cost in problem.getSuccessors(state):
             if successor not in visited:
                 stack.push((successor,actions+[action]))
@@ -161,7 +156,7 @@ def uniformCostSearch(problem):
 
         for successor, action, cost in problem.getSuccessors(state):
             if successor not in visited:
-                queue.push((successor,actions+[action]),problem.getCostOfActions(actions+[action])+1)
+                queue.push((successor,actions+[action]),problem.getCostOfActions(actions+[action]))
 
 
 
