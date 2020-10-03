@@ -131,7 +131,7 @@ def breadthFirstSearch(problem):
 
             if successor not in visited:
                 queue.push((successor,actions+[action]))
-
+    return []
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
@@ -158,7 +158,7 @@ def uniformCostSearch(problem):
             if successor not in visited:
                 queue.push((successor,actions+[action]),problem.getCostOfActions(actions+[action]))
 
-
+    return []
 
 
 
@@ -197,7 +197,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
                     cost + problem.getCostOfActions(actions) +
                     heuristic(successor,problem))
 
-
+    return []
 # Abbreviations
 bfs = breadthFirstSearch
 dfs = depthFirstSearch
