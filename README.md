@@ -8,7 +8,7 @@
 #### Cách làm:
 - Từ vị trí xuất phát, đi tới ô liền kề của nó mà chưa được thăm, lưu lại tọa độ của các ô đã này. Tiếp tục lấy ô mới nhất vừa được thăm, đi tiếp. Trong quá trình duyệt, nếu không thấy ô liền kề, chưa được thăm thì quay lại ô trước nó. Thuật toán dừng lại khi không còn ô chưa được thăm hoặc tới được đích. 
 <!-- - Trong quá trình đi từ đỉnh này sang đỉnh kia , tiến hành lưu lại đỉnh cha của đỉnh kề, để khi đi ngược lại từ đỉnh Kết Thúc đến đỉnh Xuất Phát, ta có được đường đi cần tìm. -->
-- Sử dụng stack để lưu danh sách các ô kề, khi không còn ô nào có thể đi nữa có thể quay lại vị trí đỉnh cha 
+- Sử dụng stack để cài đặt thuật toán, các phần tử được thêm vào sau sẽ được lấy ra trước, các ô có chung một ô liền trước sẽ được lưu cạnh nhau trong stack, phải duyệt xong một nhánh rồi mới quay lại duyệt tiếp nhánh khác 
 #### Cài đặt:
 - **visited**: dùng để lưu vị trí các ô đã thăm
 - **stack**: dùng để lưu vị trí, các hành động để có thể mở rộng ra các ô tiếp theo
@@ -28,5 +28,7 @@
 - Kết quả trả về là danh sách các hành động để đạt được trạng thái đích, trả về danh sách rỗng nếu không tìm được.
 ### Câu hỏi 2: Tìm điểm cố định bằng phương pháp tìm kiếm theo chiều rộng (breadth first search)
 #### Cách làm:
-    - tương tự dfs
-    - Sử dụng queue để lưu danh sách các ô kề, 
+- Từ vị trí xuất phát, đi tới tất cả các ô liền kề nó mà chưa được thăm, lưu lại tọa độ của các ô này. Sau khi thăm hết các đỉnh liền kề này, tiếp tục thăm các ô liền kề của các ô vừa được thăm, tiếp tục cho đến khi không còn đỉnh nào chưa được thăm hoặc đến được đích.
+- Sử dụng queue để cài đặt thuật toán, các phần tử được thêm vào trước sẽ được lấy ra trước, các ô có chung một ô liền trước sẽ được cạnh nhau trong queue, phải thăm hết các ô này rồi mới duyệt các ô liền kề các ô này
+#### Cài đặt
+
