@@ -106,7 +106,7 @@ def depthFirstSearch(problem):
             if successor not in visited:
                 stack.push((successor,actions+[action]))
 
-
+    return []
 
 
 def breadthFirstSearch(problem):
