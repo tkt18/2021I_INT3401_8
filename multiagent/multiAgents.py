@@ -43,6 +43,7 @@ class ReflexAgent(Agent):
 
         # Choose one of the best actions
         scores = [self.evaluationFunction(gameState, action) for action in legalMoves]
+        # print "---------------------------------"
         bestScore = max(scores)
         bestIndices = [index for index in range(len(scores)) if scores[index] == bestScore]
         chosenIndex = random.choice(bestIndices) # Pick randomly among the best
@@ -65,6 +66,9 @@ class ReflexAgent(Agent):
 
         Print out these variables to see what you're getting, then combine them
         to create a masterful evaluation function.
+
+
+        python pacman.py -p ReflexAgent -l testClassic
         """
         # Useful information you can extract from a GameState (pacman.py)
         successorGameState = currentGameState.generatePacmanSuccessor(action)
@@ -74,7 +78,28 @@ class ReflexAgent(Agent):
         newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
 
         "*** YOUR CODE HERE ***"
-        return successorGameState.getScore()
+        if action == "Stop": return 0
+        scaredTime = min(newScaredTimes)  # Cang lon cang tot
+        
+        nearestGhost = min([manhattanDistance(newPos,ghost.getPosition()) for ghost in newGhostStates])# Cang lon cang tot 
+        if newFood.asList():
+        
+          nearestFood = min([manhattanDistance(newPos,food) for food in newFood.asList()])# cang be cang tot
+        else:
+          nearestFood = 0
+        
+        # if scaredTime > 0 or nearestGhost > 6:
+        #   score = nearestGhost / (nearestFood +1)
+        # # elif nearestGhost > 8:
+        # #   score = 8 / (nearestFood+1)
+        # else:
+        score = (nearestGhost) / (nearestFood+1)
+        # print successorGameState.getScore() + score
+        # print "action  ",action,"  scared time  ",scaredTime, "  nearest ghost  ",nearestGhost, "  nearest food  ",nearestFood, "  successor score  " ,successorGameState.getScore() 
+        
+        # print newFood
+        # print successorGameState.getScore() + score
+        return successorGameState.getScore() + score
 
 def scoreEvaluationFunction(currentGameState):
     """
