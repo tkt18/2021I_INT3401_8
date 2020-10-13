@@ -88,17 +88,9 @@ class ReflexAgent(Agent):
         else:
           nearestFood = 0
         
-        # if scaredTime > 0 or nearestGhost > 6:
-        #   score = nearestGhost / (nearestFood +1)
-        # # elif nearestGhost > 8:
-        # #   score = 8 / (nearestFood+1)
-        # else:
-        score = (nearestGhost) / (nearestFood+1)
-        # print successorGameState.getScore() + score
-        # print "action  ",action,"  scared time  ",scaredTime, "  nearest ghost  ",nearestGhost, "  nearest food  ",nearestFood, "  successor score  " ,successorGameState.getScore() 
         
-        # print newFood
-        # print successorGameState.getScore() + score
+        score = (nearestGhost) / (nearestFood+1)
+        
         return successorGameState.getScore() + score
 
 def scoreEvaluationFunction(currentGameState):
