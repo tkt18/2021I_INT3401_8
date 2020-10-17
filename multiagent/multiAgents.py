@@ -85,7 +85,6 @@ class ReflexAgent(Agent):
         "*** YOUR CODE HERE ***"
         if action == "Stop":
             return 0
-        scaredTime = min(newScaredTimes)  
 
         nearestGhost = min([manhattanDistance(newPos, ghost.getPosition())
                             for ghost in newGhostStates])  

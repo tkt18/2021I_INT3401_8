@@ -10,6 +10,7 @@ Viết lại hàm `evaluationFunction` để có được hàm đánh giá tốt
 
 >python autograder.py -q q1
 
+>python autograder.py -q q1 --no-graphics
 
 ## Question 2: Minimax
 
