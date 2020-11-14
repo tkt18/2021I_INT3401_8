@@ -78,7 +78,68 @@ def enhancedFeatureExtractorDigit(datum):
     features =  basicFeatureExtractorDigit(datum)
 
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    def inRange(x, y):
+        return 0 <= x < DIGIT_DATUM_WIDTH and 0 <= y < DIGIT_DATUM_HEIGHT
+
+    def getNeighbours(x, y):
+        ls = []
+        for i in range(-1, 2):
+            for j in range(-1, 2):
+                x_next, y_next = x + i, y + j
+                if i * j != 0:
+                    continue
+                if not inRange(x_next, y_next):
+                    continue
+                ls.append( (x_next, y_next) )
+        return ls
+
+    def dfs(x, y):
+        visited.add( (x, y) )
+        for x_next, y_next in getNeighbours(x, y):
+            if features[(x_next, y_next)] == 1:
+                continue
+            if not (x_next, y_next) in visited:
+                dfs(x_next, y_next)
+
+    features =  basicFeatureExtractorDigit(datum)
+
+    visited = set()
+    numComponents = 0
+    for x in xrange(DIGIT_DATUM_WIDTH):
+        for y in xrange(DIGIT_DATUM_HEIGHT):
+            if features[(x, y)] == 1 or (x, y) in visited:
+                continue
+            dfs(x, y) 
+            numComponents += 1
+    
+    numComponents -= 1
+    features[ 'numComponentsA' ] = numComponents == 2 
+    features[ 'numComponentsB' ] = numComponents == 1
+    features[ 'numComponentsC' ] = numComponents == 0
+
+    lines = 0
+    horizontalLine = [features[ (DIGIT_DATUM_WIDTH / 2, i) ] for i in range (DIGIT_DATUM_HEIGHT)]
+    for i in range(1, len(horizontalLine)):
+        if horizontalLine[i] == 1 and horizontalLine[i - 1] == 0:
+            lines += 1
+    lines = min(lines, 4)
+    
+    features[ 'linesHorA' ] = lines == 1
+    features[ 'linesHorB' ] = lines == 2
+    features[ 'linesHorC' ] = lines == 3
+    features[ 'linesHorD' ] = lines == 4
+    
+    lines = 0
+    verticalLine = [features[ (i, DIGIT_DATUM_HEIGHT / 2) ] for i in range (DIGIT_DATUM_WIDTH)]
+    for i in range(1, len(verticalLine)):
+        if verticalLine[i] == 1 and verticalLine[i - 1] == 0:
+            lines += 1
+    lines = min(lines, 4)
+
+    features[ 'linesVertA' ] = lines == 1
+    features[ 'linesVertB' ] = lines == 2
+    features[ 'linesVertC' ] = lines == 3
+    features[ 'linesVertD' ] = lines == 4
 
     return features
 
@@ -124,7 +185,30 @@ def enhancedPacmanFeatures(state, action):
     """
     features = util.Counter()
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    inf = 10 ** 3
+
+    successorState = state.generateSuccessor(0, action)
+    state = successorState
+    pacmanPosition = state.getPacmanPosition()
+ 
+    features[ 'win' ] = state.isWin()
+    features[ 'lose' ] = state.isLose()
+    features[ 'score' ] = state.getScore()
+
+    food = state.getFood().asList() or [(inf, inf)]
+    closestFood = min(map(lambda x: util.manhattanDistance(pacmanPosition, x), food))
+    features[ 'foodNum' ] = len(food)
+    features[ 'closestFood' ] = 1.0 / closestFood
+
+    ghosts = state.getGhostPositions() or [(inf, inf)]
+    closestGhost = min(map(lambda x: util.manhattanDistance(pacmanPosition, x), ghosts))
+    features[ 'ghostsNum' ] = len(ghosts)
+    features[ 'closestGhost' ] = closestGhost and 1.0 / closestGhost or 0
+
+    capsules = state.getCapsules() or [(inf, inf)]
+    closestCapsule = min(map(lambda x: util.manhattanDistance(pacmanPosition, x), capsules))
+    features[ 'capsulesNum' ] = len(capsules)
+    features[ 'closestCapsule' ] = 1.0 / closestCapsule
     return features
 
 
